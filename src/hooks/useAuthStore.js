@@ -42,11 +42,38 @@ export const useAuthStore = () => {
         }
     }
 
+    const checkAuthToken = async() => {
+        const token = localStorage.getItem('token');
+        if(!token) dispatch(onLogout());
+        try {
+            const { data } = await calendarApi.get('/auth/renew');
+            localStorage.setItem('token',data.token);
+            localStorage.setItem('token-date', new Date());
+            dispatch(onLogin({ name: data.name, uid: data.uid }));
+        } catch (error) {
+            console.error(error);
+            if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK'){
+                dispatch(onLogout("timeout"));
+                return;
+            }
+            const { response: { data } } = error;
+            dispatch(onLogout(data.msg[0].msg || data.msg))
+            localStorage.clear();
+        }
+    }
+
+    const startLogout = () => {
+        localStorage.clear();
+        dispatch(onLogout());
+    }
+
     return {
         status, 
         user, 
         errorMessage,
         startLogin,
-        startRegister
+        startRegister,
+        checkAuthToken,
+        startLogout
     }
 }

@@ -5,9 +5,19 @@ const { VITE_API_URL }  = getEnvVariables();
 
 const calendarApi = axios.create({
     baseURL: VITE_API_URL,
-    timeout: 5000
+    timeout: 7000
 });
 
 // todo: configurar interceptors
+
+calendarApi.interceptors.request.use( config => {
+    if(config.method === 'get'){
+        config.headers = {
+            ...config.headers,
+            'x-token': localStorage.getItem('token')
+        }
+    }
+    return config;
+})
 
 export default calendarApi;
