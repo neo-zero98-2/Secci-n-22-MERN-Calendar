@@ -1,21 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addHours } from "date-fns";
-
-const events = [{
-  _id: new Date().getTime(),
-  title: 'Cumpleaños',
-  notes: 'Hay que comprar pastel',
-  start: new Date(),
-  end: addHours(new Date(),1),
-  bgColor: '#fafafa',
-  user: {
-    _id: '123',
-    name: ' del jefe Caleb'
-  }
-}];
 
 const initialState = {
-  events,
+  isLoadingEvents: true,
+  events: [],
   activeEvent: null
 }
 
@@ -32,15 +19,30 @@ export const calendarSlice = createSlice({
     },
     onUpdateEvent: (state, { payload }) => {
       state.events = state.events.map( item => {
-        if(item._id === payload._id){
+        if(item.id === payload.id){
           return payload;
         }
         return item;
       })
     },
     onDeleteEvent: (state) => {
-      state.events = state.events.filter( item => item._id !== state.activeEvent._id);
+      state.events = state.events.filter( item => item.id !== state.activeEvent.id);
       state.activeEvent = null;
+    },
+    // * añade eventos solo si no existen
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+      payload.forEach( item => {
+        const hasExist = state.events.some( dbEvent => dbEvent.id === item.id );
+        if(!hasExist){
+          state.events.push(item);
+        }
+      });
+    },
+    onLogoutCalendar: (state) => {
+      state.activeEvent = null;
+      state.events = [];
+      state.isLoadingEvents = true;
     }
   },
 })
@@ -49,6 +51,8 @@ export const calendarSlice = createSlice({
 export const { 
   onAddNewEvent, 
   onDeleteEvent,
+  onLoadEvents,
+  onLogoutCalendar,
   onSetActiveEvent,
   onUpdateEvent
 } = calendarSlice.actions

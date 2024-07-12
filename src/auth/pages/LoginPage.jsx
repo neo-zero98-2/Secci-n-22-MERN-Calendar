@@ -18,8 +18,8 @@ const registerFields = {
 export const LoginPage = () => {
 
     const { startLogin, errorMessage, startRegister } = useAuthStore();
-    const { loginEmail, loginPassword, onInputChange:onLoginInputChange } = useForm(loginFields);
-    const { 
+    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFields);
+    const {
         registerEmail,
         registerName,
         registerPassword,
@@ -29,23 +29,23 @@ export const LoginPage = () => {
 
     const onLoginSubmit = (event) => {
         event.preventDefault();
-        startLogin({ email: loginEmail, password: loginPassword});
+        startLogin({ email: loginEmail, password: loginPassword });
     }
 
     const onRegisterSubmit = (event) => {
         event.preventDefault();
-        if(registerPassword !== registerPassword2){
-            Swal.fire('Error en el registro', 'las contraseñas son diferentes','error');
+        if (registerPassword !== registerPassword2) {
+            Swal.fire('Error en el registro', 'las contraseñas son diferentes', 'error');
         }
         startRegister({ name: registerName, email: registerEmail, password: registerPassword });
     }
 
     useEffect(() => {
-        if(errorMessage !== undefined){
+        if (errorMessage !== undefined) {
             Swal.fire('Error en la autenticación', errorMessage, 'error');
         }
     }, [errorMessage]);
-    
+
 
     return (
         <div className="container login-container">
@@ -54,7 +54,7 @@ export const LoginPage = () => {
                     <h3>Ingreso</h3>
                     <form onSubmit={onLoginSubmit}>
                         <div className="form-group mb-2">
-                            <input 
+                            <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Correo"
@@ -74,11 +74,14 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className="form-group mb-2">
-                            <input 
-                                type="submit"
-                                className="btnSubmit"
-                                value="Login" 
-                            />
+                            <div class="d-grid gap-2">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary">
+                                    Login
+                                </button>
+
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -129,10 +132,13 @@ export const LoginPage = () => {
                         </div>
 
                         <div className="form-group mb-2">
-                            <input 
-                                type="submit" 
-                                className="btnSubmit" 
-                                value="Crear cuenta" />
+                            <div class="d-grid gap-2">
+                                <button
+                                    type="submit"
+                                    class="btn btn-light">
+                                    Light
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -18,7 +18,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['calendar/onSetActiveEvent'],
+        ignoredActions: ['calendar/onSetActiveEvent', 'calendar/onLoadEvents'],
         ignoredActionPaths: ['payload.start', 'payload.end'],
         ignoredPaths: ['calendar.events', 'calendar.activeEvent']
       }

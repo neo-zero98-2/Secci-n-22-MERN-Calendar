@@ -11,12 +11,13 @@ const calendarApi = axios.create({
 // todo: configurar interceptors
 
 calendarApi.interceptors.request.use( config => {
-    if(config.method === 'get'){
+    if(config.method === 'get' || config.url.includes('/events')){
         config.headers = {
             ...config.headers,
             'x-token': localStorage.getItem('token')
         }
     }
+    
     return config;
 })
 
