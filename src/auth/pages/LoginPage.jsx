@@ -74,10 +74,10 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div className="form-group mb-2">
-                            <div class="d-grid gap-2">
+                            <div className="d-grid gap-2">
                                 <button
                                     type="submit"
-                                    class="btn btn-primary">
+                                    className="btn btn-primary">
                                     Login
                                 </button>
 
@@ -132,10 +132,10 @@ export const LoginPage = () => {
                         </div>
 
                         <div className="form-group mb-2">
-                            <div class="d-grid gap-2">
+                            <div className="d-grid gap-2">
                                 <button
                                     type="submit"
-                                    class="btn btn-light">
+                                    className="btn btn-light">
                                     Light
                                 </button>
                             </div>

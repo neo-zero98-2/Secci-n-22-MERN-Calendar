@@ -11,3 +11,9 @@ Currently, two official plugins are available:
 ## development
 1. Renombrar el archivo `.env.template` por `.env`
 2. Hacer los cambios respectivos a las variables de entrono de el `.env`
+
+## deployd en el backend
+el proyecto se deployo en railway
+
+1. Compilar la aplicacion con `npm run build`
+2. copiar la carpeta dist y pegarla en carpeta public del backend

@@ -37,8 +37,8 @@ export const useAuthStore = () => {
                 dispatch(onLogout("timeout"));
                 return;
             }
-            const { response: { data } } = error;
-            dispatch(onLogout(data.msg[0].msg || data.msg))
+            const { response: { data }} = error;
+            dispatch(onLogout(data.msg[0].msg || data.msg));
         }
     }
 
@@ -52,13 +52,17 @@ export const useAuthStore = () => {
             dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
             console.error(error);
+            localStorage.clear();
             if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK'){
                 dispatch(onLogout("timeout"));
                 return;
             }
-            const { response: { data } } = error;
+            const { response: { data, status } } = error;
+            if(status === 401) {
+                dispatch(onLogout());
+                return;
+            }
             dispatch(onLogout(data.msg[0].msg || data.msg))
-            localStorage.clear();
         }
     }
 
