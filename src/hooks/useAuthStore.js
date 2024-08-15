@@ -20,7 +20,7 @@ export const useAuthStore = () => {
                 return;
             }
             const { response: { data } } = error;
-            dispatch(onLogout(data.msg[0].msg || data.msg))
+            dispatch(onLogout(data.msg[0].msg || data.msg));
         }
     }
 
